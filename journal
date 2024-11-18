@@ -158,12 +158,27 @@ Filling template
 Fidnig tutuorial 
 read https://dify.ai/blog/introducing-dify-workflow-file-upload-a-demo-on-ai-podcast
 
-9:45am _______________  
+9:45am _______________  Goal: Find tutorial to use defy. 
 Looks like defy uses a node like structure for an intuative workflow, but I still need to figure out how to set it up. 
 Looking again at the README.md
 
+The instructions say to install docker and docker compose using
+cd dify
+cd docker
+cp .env.example .env
+docker compose up -d
+
+however, running in the terminal gives an error:
+cd: no such file or directory: dify
+cd: no such file or directory: docker
+cp: .env.example: No such file or directory
+no configuration file provided: not found
+
+My thinking is that I need to download docker and docker compose first. 
+
+
 10:00am _______________  
-Unassigned  
+Reading how to install and use Docker. Docker and Docker compose are prerequisites.  
 
 10:15am _______________  
 Unassigned  
