@@ -114,25 +114,30 @@ Study techinques: Silence; In a dark room where I can only see my screen.; Early
 SMART: S:I will compelete the tutorial. M:I will be have generated a photo using dify. A:Yes. R: Yes. T:In one hour.
 
 6:15am _______________  
-  
+Trying to install pastel-mix or else find the model name and the base URL.
 
 6:30am _______________  Goal: Identify potential projects to contribute. 
-Identify and write findings in Notion   
+Trying to install pastel-mix or else find the model name and the base URL.
 
 6:45am _______________  Goal: Identify potential projects to contribute. 
-Identify and write findings in Notion    
+lifted weights
+mobile game
 
 7:00am _______________  Goal: Identify potential projects to contribute. 
-Identify and write findings in Notion   
+moblie game
 
 7:15am _______________  
-Stopped for breakfast  
+Still cannot find base URL and model name...
 
 7:30am _______________  
-Breakfast  
+
 
 7:45am _______________  
-Breakfast  
+Got stablediffusion it to run. Still looking for model name...
+Found model name. 
+Breakfast
+Stablediffusion authorizer is not accepting the model or Base URL... 
+says Failed to get models, [Errno 111] Connection refused.
 
 8:00am _______________  
 Breakfast  
