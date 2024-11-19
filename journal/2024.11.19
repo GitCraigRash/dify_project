@@ -252,7 +252,7 @@ Looking for Gold Chain at Boscov's
 Driving home  
 
 4:30pm _______________  
-Driving home    
+reading   
 
 4:45pm _______________  
 Driving home    
@@ -267,13 +267,13 @@ Dinner
 Reading tutorial for Image generation.  
 
 5:45pm _______________  
-Reading tutorial for Image generation.    
+Idea: What if a LLM was asked a question, and it did not use its entire context,
+but searched though it to find what is the most relevant context 
+and using that summary as the context to the origional prompt.
 
 6:00pm _______________  
-Setting up APIs    
 
 6:15pm _______________  
-Reading tutorial for Image generation.    
 
 6:30pm _______________  
 Unassigned  
