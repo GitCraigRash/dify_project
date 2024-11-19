@@ -195,26 +195,38 @@ Lunch
 Running
 12:45pm _______________  
 Running
-1:00pm _______________  
 
+1:00pm _______________  
+Looking for answers as to why the photo generated is not being displayed.
+Chat says the photo may be placed at the base URL +
 1:15pm _______________  
 Confirmed that docker and docker compose is installed
 
 1:30pm _______________  
 got coffee
-Reading the github README.md
 
 1:45pm _______________  
-konkr.io  
+
 
 2:00pm _______________  
-konkr.io  
+
 
 2:15pm _______________  
-Conversation with Parents  
+ 
 
 2:30pm _______________  
-Planning where to get a chain for R pendent
+OK. Look. I am just going to read the documention... all of it. 
+But first I will write a few questions to help me focus and find detrails I may need. 
+Waht are the ways I can get information into the process?
+What are ways I can export information from the process?
+Can I calculate the cost before a prompt?
+How does each step of the process connect to each other?
+Are there token limits outside of the individual model token limits?
+What purposes was this process designed to fulfill?
+Why did the creators decide on the design choices that they chose?
+Where can I find ways to get the best results?
+What are the weaknesses of this program?
+
 
 2:45pm _______________  
 git clone https://github.com/langgenius/dify.git was required first. Now its running...
