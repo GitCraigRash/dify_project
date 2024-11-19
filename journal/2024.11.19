@@ -179,8 +179,11 @@ However, stable diffusion will not activat because it says
 Even if I change the name of the variable to  "prompt" it gives the same error. Why is nothing explained?
 
 11:15am _______________  
+Reading Documentation...
 
 11:30am _______________  
+Found that each LLM node has a prompt field. I need to use / to view a selection of variables from the previous node!
+New problem: It does not give an output. No idea why...
 
 11:45am _______________  
 
