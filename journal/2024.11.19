@@ -139,91 +139,60 @@ Breakfast
 Stablediffusion authorizer is not accepting the model or Base URL... 
 says Failed to get models, [Errno 111] Connection refused.
 
-8:00am _______________  
-Breakfast  
+8:00am _______________    
+Memes
 
-8:15am _______________  
-Breakfast  
+8:15am _______________    
+Memes
 
 8:30am _______________  
-Identify and write findings in Notion  
+Figuring out why "Failed to get models, [Errno 111] Connection refused."
 
 8:45am _______________  
-Identify and write findings in Notion 
+Figuring out why "Failed to get models, [Errno 111] Connection refused."
 
 9:00am _______________  
-Called Geon. He assigned me to learn Defy, contribute, and identify defy's weaknesses. 
-Log my progress and share. (I will try to share daily ending at 9PM)
+memes
 
 9:15am _______________  
-Writing logging template  
-Filling template 
-
-9:30am _______________  Goal: Find tutorial to use defy.
- 7min social break
-Fidnig tutuorial 
-read https://dify.ai/blog/introducing-dify-workflow-file-upload-a-demo-on-ai-podcast
-
-9:45am _______________  Goal: Find tutorial to use defy. 
-Looks like defy uses a node like structure for an intuative workflow, but I still need to figure out how to set it up. 
-Looking again at the README.md
-
-The instructions say to install docker and docker compose using
-cd dify
-cd docker
-cp .env.example .env
-docker compose up -d
-
-however, running in the terminal gives an error:
-cd: no such file or directory: dify
-cd: no such file or directory: docker
-cp: .env.example: No such file or directory
-no configuration file provided: not found
-
-My thinking is that I need to download docker and docker compose first. 
 
 
-10:00am _______________  Goal: Find tutorial to use defy.
-Reading how to install and use Docker. Docker and Docker compose are prerequisites.  
+9:30am _______________ 
+youtube
+
+9:45am _______________  
+youtube
+
+10:00am _______________  
 
 10:15am _______________  
-konkr.io  
 
 10:30am _______________  
-konkr.io   
 
 10:45am _______________  
-konkr.io   
+ Decided to stop looking up stuff and switch to trial and error. 
 
 11:00am _______________  
-konkr.io   
+Set up a simple work flow of start -> Stable Diffusion -> End
+However, stable diffusion will not activat because it says
+{"errors":["prompt: string must contain at least 1 character(s)"],"id":"04638e7f60e619d220c8533fd5ece2f6","name":"bad_request"}
+Even if I change the name of the variable to  "prompt" it gives the same error. Why is nothing explained?
 
 11:15am _______________  
-konkr.io   
 
 11:30am _______________  
-konkr.io   
 
 11:45am _______________  
-konkr.io   
 
 12:00pm _______________  
-konkr.io   
 
 12:15pm _______________  
-konkr.io   
 
 12:30pm _______________  
-konkr.io   
 
 12:45pm _______________  
-finding tutorial for Docker compose  
 
 1:00pm _______________  
-a potential probelm with Docker is that a file became outdated 
-and now only poitns to another file. This can cuase problems, but thankfully
-a certain setting "Automatically check configuration" fixes this problem.
-
 
 1:15pm _______________  
 Confirmed that docker and docker compose is installed
