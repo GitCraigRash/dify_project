@@ -167,153 +167,92 @@ Switching to Job Applications
 Goal: 5 applications in the next hour
 
 12:15pm _______________  
-
+Rachel says she is off work and can stutdy together
 
 12:30pm _______________  
+Prep to pick up rachel
 
 12:45pm _______________  
-
+Prep to pick up rachel 
 
 1:00pm _______________  
-Work
+Pick up Rachel 
 
 1:15pm _______________  
-Work
+Browse Library
 
 1:30pm _______________  
-Work
+Browse Library
 
 1:45pm _______________  
-Work
+Browse Library
 
 2:00pm _______________  
-Break
+Do Applications
 
 2:15pm _______________  
-Break
+Do Applications
 
 2:30pm _______________  
-Work
+Do Applications
 
 2:45pm _______________  
-Work
+Do Applications
 
 3:00pm _______________  
-Work
+Do Applications
 
 3:15pm _______________  
-Work
+Do Applications
 
 3:30pm _______________  
-Work
+Do Applications
 
 3:45pm _______________  
-Work
+Do Applications
 
 4:00pm _______________  
-Work
+Do Applications
 
 4:15pm _______________  
-Work
+Do Applications
 
 4:30pm _______________  
-Work
+Do Applications
 
 4:45pm _______________  
-Work
+Do Applications
 
 5:00pm _______________  
-Needed to work more because I was put in charge of the class
 
 5:15pm _______________  
-Needed to work more because I was put in charge of the class
 
 5:30pm _______________  
-Needed to work more because I was put in charge of the class
 
 5:45pm _______________  
-Drive
 
 6:00pm _______________  
-Drive
 
 6:15pm _______________  
-Talk with family
 
 6:30pm _______________  
-Talk with family
 
 6:45pm _______________  
-Job Applications
 
 7:00pm _______________  
-Job Applications
 
 7:15pm _______________  
-Here's what can be inferred regarding your goal and the provided code:
-Imports the Extension class from core.extension.extension.
-Defines an init() function that initializes the code_based_extension
-by calling its init() method.
-
-
-1. How the API Initializes Services or Tools
-The API uses a modular approach for initializing services or tools. 
-This specific file:
-
-Imports the Extension class from core.extension.extension.
-Defines an init() function that initializes the code_based_extension
-by calling its init() method.
-
-2. Whether There's a Registration Mechanism for New Tools or Pipelines
-This file does not directly reveal a registration mechanism for tools
-or pipelines. However:
-
-The presence of Extension() suggests it is part of a larger framework
-designed to manage extensions, tools, or services.
-To understand registration, you need to inspect the Extension class 
-in core.extension.extension. That class will likely define how 
-extensions are created, registered, and initialized.
-3. How Existing Tools Are Bootstrapped or Linked to the Application
-This file contributes to bootstrapping by:
-
-Creating an Extension instance (code_based_extension) and initializing
-it.
-Linking code_based_extension to the larger application through its init()
-function. This function may be invoked during app initialization 
-(e.g., in initialize_extensions() in app_factory.py).
-
-
-Next Steps
-To fully understand how to integrate AWS Quantum Computing:
-
-Inspect core/extension/extension.py:
-Look at the Extension class to see how extensions/tools are structured,
-registered, and initialized.
-Trace where code_based_extension.init() is called:
-This will reveal when and how extensions are integrated into the 
-application lifecycle.
-Explore Related Documentation or Examples:
-Look for other uses of the Extension class or similar extensions in the 
-codebase for patterns you can replicate.
 
 7:30pm _______________  
-Looked for opprotunites to contribute to Dify
 
 7:45pm _______________  
-Looking at Issues.
-Realized the issue I was looking at was closed. Noted for the future not to consider these ones.
 
 8:00pm _______________  
-Looking at Issues.
 
 8:15pm _______________  
-Looking at Issues.
 
 8:30pm _______________  
-Looking at Issues.
 
 8:45pm _______________  
-Looking at Issues.
 
 9:00pm _______________  
-Looking at Issues.
