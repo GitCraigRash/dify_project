@@ -1,320 +1,92 @@
-### Submit this worksheet at 9PM ###
-
-
-9:00pm _______________  
-Drive R home  
-
-9:15pm _______________  
-Drive R home   
-
-9:30pm _______________  
-Drive back  
-
-9:45pm _______________  
-Prep for Bed   
-
-10:00pm _______________  
-Sleep  
-
-10:15pm _______________  
-Sleep  
-
-10:30pm _______________  
-Sleep  
-
-10:45pm _______________  
-Sleep  
-
-11:00pm _______________  
-Sleep  
-
-11:15pm _______________  
-Sleep  
-
-11:30pm _______________  
-Sleep  
-
-11:45pm _______________  
-Sleep  
-
-12:00am _______________  
-Sleep  
-
-12:15am _______________  
-Sleep  
-
-12:30am _______________  
-Sleep  
-
-12:45am _______________  
-Sleep  
-
-1:00am _______________  
-Sleep  
-
-1:15am _______________  
-Sleep  
-
-1:30am _______________  
-Sleep  
-
-1:45am _______________  
-Sleep  
-
-2:00am _______________  
-Sleep  
-
-2:15am _______________  
-Sleep  
-
-2:30am _______________  
-Sleep  
-
-2:45am _______________  
-Sleep  
-
-3:00am _______________  
-Sleep  
-
-3:15am _______________  
-Sleep  
-
-3:30am _______________  
-Sleep  
-
-3:45am _______________  
-Sleep  
-
-4:00am _______________  
-Sleep  
-
-4:15am _______________  
-Sleep  
-
-4:30am _______________  
-Sleep  
-
-4:45am _______________  
-Sleep  
-
-5:00am _______________  
-Pray  
-
-5:15am _______________  
-Nap  
-
-5:30am _______________  
-Nap  
-
-5:45am _______________  
-Talk 2 Geon  
-
-6:00am _______________  
-Run and jog  
-
-6:15am _______________  
-Run and Jog  
-
-6:30am _______________  Goal: Identify potential projects to contribute. 
-Identify and write findings in Notion   
-
-6:45am _______________  Goal: Identify potential projects to contribute. 
-Identify and write findings in Notion    
-
-7:00am _______________  Goal: Identify potential projects to contribute. 
-Identify and write findings in Notion   
-
-7:15am _______________  
-Stopped for breakfast  
-
-7:30am _______________  
-Breakfast  
-
-7:45am _______________  
-Breakfast  
-
-8:00am _______________  
-Breakfast  
-
-8:15am _______________  
-Breakfast  
-
-8:30am _______________  
-Identify and write findings in Notion  
-
-8:45am _______________  
-Identify and write findings in Notion 
-
-9:00am _______________  
-Called Geon. He assigned me to learn Defy, contribute, and identify defy's weaknesses. 
-Log my progress and share. (I will try to share daily ending at 9PM)
-
-9:15am _______________  
-Writing logging template  
-Filling template 
-
-9:30am _______________  Goal: Find tutorial to use defy.
- 7min social break
-Fidnig tutuorial 
-read https://dify.ai/blog/introducing-dify-workflow-file-upload-a-demo-on-ai-podcast
-
-9:45am _______________  Goal: Find tutorial to use defy. 
-Looks like defy uses a node like structure for an intuative workflow, but I still need to figure out how to set it up. 
-Looking again at the README.md
-
-The instructions say to install docker and docker compose using
-cd dify
-cd docker
-cp .env.example .env
-docker compose up -d
-
-however, running in the terminal gives an error:
-cd: no such file or directory: dify
-cd: no such file or directory: docker
-cp: .env.example: No such file or directory
-no configuration file provided: not found
-
-My thinking is that I need to download docker and docker compose first. 
-
-
-10:00am _______________  Goal: Find tutorial to use defy.
-Reading how to install and use Docker. Docker and Docker compose are prerequisites.  
-
-10:15am _______________  
-konkr.io  
-
-10:30am _______________  
-konkr.io   
-
-10:45am _______________  
-konkr.io   
-
-11:00am _______________  
-konkr.io   
-
-11:15am _______________  
-konkr.io   
-
-11:30am _______________  
-konkr.io   
-
-11:45am _______________  
-konkr.io   
-
-12:00pm _______________  
-konkr.io   
-
-12:15pm _______________  
-konkr.io   
-
-12:30pm _______________  
-konkr.io   
-
-12:45pm _______________  
-finding tutorial for Docker compose  
-
-1:00pm _______________  
-a potential probelm with Docker is that a file became outdated 
-and now only poitns to another file. This can cuase problems, but thankfully
-a certain setting "Automatically check configuration" fixes this problem.
-
-
-1:15pm _______________  
-Confirmed that docker and docker compose is installed
-
-1:30pm _______________  
-got coffee
-Reading the github README.md
-
-1:45pm _______________  
-konkr.io  
-
-2:00pm _______________  
-konkr.io  
-
-2:15pm _______________  
-Conversation with Parents  
-
-2:30pm _______________  
-Planning where to get a chain for R pendent
-
-2:45pm _______________  
-git clone https://github.com/langgenius/dify.git was required first. Now its running...
-
-  
-
-3:00pm _______________  
-Drive into to Boscov's  
-
-3:15pm _______________  
-Drive into to Boscov's    
-
-3:30pm _______________  
-Looking for Gold Chain at Boscov's   
-
-3:45pm _______________  
-Looking for Gold Chain at Boscov's    
-
-4:00pm _______________  
-Looking for Gold Chain at Boscov's  
-
-4:15pm _______________  
-Driving home  
-
-4:30pm _______________  
-Driving home    
-
-4:45pm _______________  
-Driving home    
-
-5:00pm _______________  
-Dinner  
-
-5:15pm _______________  
-Dinner  
-
-5:30pm _______________  
-Reading tutorial for Image generation.  
-
-5:45pm _______________  
-Reading tutorial for Image generation.    
-
-6:00pm _______________  
-Setting up APIs    
-
-6:15pm _______________  
-Reading tutorial for Image generation.    
-
-6:30pm _______________  
-Unassigned  
-
-6:45pm _______________  
-The tutorial is asking for a base URL and model for stable diffusion.
-I am not sure what those are and am looking into finding out.   
-
-7:00pm _______________  
-Learning how to work Stable Diffusion  
-
-7:15pm _______________  
-Learning how to work Stable Diffusion    
-
-7:30pm _______________  
-Learning how to work Stable Diffusion   
-
-7:45pm _______________  
-Reaching out for help on Discord  
-
-8:00pm _______________  
-Talking with R  
-
-8:15pm _______________  
-Talking with R   
-
-8:30pm _______________  
-Prep for bed  
-
-8:45pm _______________  
-Prep for bed   
-
-9:00pm _______________  
-Sleep  
+Setps to complete to add AWS Quantum
+
+1. Provider-Level Integration
+You need to define a new Provider entry for AWS Quantum Computing, specifying:
+
+provider: A unique identifier for AWS Quantum (e.g., aws_quantum).
+label: Human-readable names in multiple languages (en_US, zh_Hans).
+description: A detailed description of the provider's capabilities.
+icon_small/icon_large: Path to visual assets for the provider.
+supported_model_types: The type of models supported by AWS Quantum, such as a custom quantum type.
+configurate_methods: The configuration methods for the provider (e.g., customizable-model or fetch-from-remote).
+provider_credential_schema: The credentials needed for accessing AWS Quantum services (e.g., API keys, endpoints).
+
+2. Model-Level Integration
+Define the AIModelEntity for any models or services AWS Quantum Computing provides:
+
+model: Unique identifiers for models (e.g., braket-sv1 or braket-tn1).
+label: Human-readable names for each model.
+model_type: Define if these models fall under a pre-existing type or require a new quantum type.
+parameter_rules: Rules for model parameters like token limits or API-specific configurations.
+pricing: Optional pricing details for the models.
+
+3. Credentials and Configuration
+Set up ProviderCredentialSchema and ModelCredentialSchema to handle user inputs:
+
+Define the variables needed for credentials (access_key, secret_key, etc.).
+Specify UI components for these inputs (e.g., text-input, secret-input).
+Configure validation rules, default values, and dependencies between form fields.
+
+
+
+Step 1: Provider-Level Integration 
+aws_quantum.json file
+{
+    "provider": "aws_quantum",
+    "label": {
+        "en_US": "AWS Quantum Computing",
+        "zh_Hans": "AWS量子计算"
+    },
+    "description": {
+        "en_US": "Access quantum computing resources on AWS via Braket.",
+        "zh_Hans": "通过Braket访问AWS上的量子计算资源。"
+    },
+    "supported_model_types": ["quantum"],
+    "configurate_methods": ["customizable-model"],
+    "provider_credential_schema": {
+        "credential_form_schemas": [
+            {
+                "variable": "access_key",
+                "label": {
+                    "en_US": "Access Key",
+                    "zh_Hans": "访问密钥"
+                },
+                "type": "text-input",
+                "required": true
+            },
+            {
+                "variable": "secret_key",
+                "label": {
+                    "en_US": "Secret Key",
+                    "zh_Hans": "秘密密钥"
+                },
+                "type": "secret-input",
+                "required": true
+            }
+        ]
+    }
+}
+
+
+Step 2: Define Supported Models
+
+
+{
+    "model": "braket-sv1",
+    "label": {
+        "en_US": "AWS Braket State Vector Simulator"
+    },
+    "model_type": "quantum",
+    "parameter_rules": [
+        {
+            "name": "shots",
+            "type": "int",
+            "default": 1000,
+            "min": 1,
+            "max": 10000,
+            "label": {
+                "en_US": "Number of Shots"
+            }
+        }
+    ]
+}
