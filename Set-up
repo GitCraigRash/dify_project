@@ -69,8 +69,6 @@ aws_quantum.json file
 
 
 Step 2: Define Supported Models
-
-
 {
     "model": "braket-sv1",
     "label": {
@@ -90,3 +88,20 @@ Step 2: Define Supported Models
         }
     ]
 }
+
+
+Extend Backend Logic:
+Implement a Python class (subclass of Extensible) to handle API interactions with AWS Braket. For example:
+
+from core.extension.extensible import Extensible
+
+class AWSQuantumProvider(Extensible):
+    def __init__(self, tenant_id: str, config: dict):
+        super().__init__(tenant_id, config)
+        self.access_key = config['access_key']
+        self.secret_key = config['secret_key']
+        self.endpoint = "https://braket.amazonaws.com"
+    
+    def execute_task(self, task_config: dict):
+        # Implement API calls to AWS Braket.
+        pass
