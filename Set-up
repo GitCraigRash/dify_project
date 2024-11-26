@@ -12,6 +12,15 @@ device = LocalSimulator()
 
 s3_founder = (f"amazon_braket_output-{aws_account_id}", Ion-Q")
 
+bell = Circuit().h(0).cnot(0,1)
+
+task = device.run(bell,s3_founder)
+
+task = device.run(bell, s3_founder, shots=1)
+counts = tasks.result().measurement_counts() 
+print(counts
+plt.bar(counts.keys(), counts.values()
+
 
 
 
