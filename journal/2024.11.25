@@ -280,7 +280,33 @@ def initialize_extensions(app):
     ext_sentry.init_app(app)
     ext_proxy_fix.init_app(app)
 
+Key Mechanism:
+
+Tools and services (extensions) are dynamically discovered and initialized by the scan_extensions method.
+This method:
+Traverses subdirectories under the current module's directory.
+Loads and instantiates extensions based on Python files (<extension_name>.py) that define subclasses of the Extensible class.
+Initialization Flow:
+
+Each subdirectory represents a potential extension.
+Required elements for initialization include:
+A Python implementation file (<extension_name>.py).
+(Optional) A schema.json for configuration or metadata.
+(Optional) A __builtin__ file that defines the position/order of built-in extensions.
+
 2. Whether there's a registration mechanism for new tools or pipelines?
+Yes, there is:
+The scan_extensions method acts as the registration mechanism.
+Steps for registration:
+Place the new extension's folder in the appropriate directory.
+Implement the logic in a <extension_name>.py file as a subclass of Extensible.
+Optionally include:
+schema.json for additional metadata (e.g., label, form_schema).
+__builtin__ for specifying the order/priority.
+Registered extensions are stored in the ModuleExtension objects, 
+which include metadata and references to the implementation classes.
+
+
 This information is not explicitly present in the provided code. While tools are imported in this line:
 
 from models import account, dataset, model, source, task, tool, tools, web  # noqa: F401
@@ -305,6 +331,37 @@ app.register_blueprint(inner_api_bp)
 
 Further understanding requires examining how tools interact with extensions
 like the database (ext_database) or storage (ext_storage).
+
+Existing tools are accessed using the following methods:
+module_extensions:
+Retrieves a list of all registered extensions for a given module.
+python
+Copy code
+def module_extensions(self, module: str) -> list[ModuleExtension]:
+    module_extensions = self.__module_extensions.get(module)
+    return list(module_extensions.values())
+module_extension:
+Fetches a specific extension by its name within a module.
+python
+Copy code
+def module_extension(self, module: ExtensionModule, extension_name: str) -> ModuleExtension:
+    return self.__module_extensions[module.value][extension_name]
+extension_class:
+Returns the class of a specific extension, which could then be instantiated or invoked.
+python
+Copy code
+def extension_class(self, module: ExtensionModule, extension_name: str) -> type:
+    return self.module_extension(module, extension_name).extension_class
+
+Bootstrapping Process:
+
+The scan_extensions method dynamically loads and instantiates each extension class.
+The Extension class from extension.py calls this scan_extensions method during its initialization, populating __module_extensions.
+Linking to the Application:
+
+Extensions are dynamically loaded into the application context and can be accessed via:
+Extension.module_extensions (retrieves all extensions for a module).
+Extension.module_extension (retrieves a specific extension).
 
 
 12:45pm _______________  
@@ -390,6 +447,8 @@ Here's what can be inferred regarding your goal and the provided code:
 Imports the Extension class from core.extension.extension.
 Defines an init() function that initializes the code_based_extension
 by calling its init() method.
+
+
 1. How the API Initializes Services or Tools
 The API uses a modular approach for initializing services or tools. 
 This specific file:
