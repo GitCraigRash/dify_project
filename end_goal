@@ -1,0 +1,15 @@
+User Inputs:
+Choose Quantum Algorithm: Grover’s Search.
+Provide Quantum Circuit: Code for Grover's search in QASM.
+Select Quantum Device: Amazon Braket simulator.
+Set Execution Settings: 100 qubits, 1000 iterations, on a simulator.
+Enable Noise Model: False (simulate ideal conditions).
+Provide AWS Credentials: API Key and Region.
+
+Expected Outputs:
+Execution Status: "COMPLETED".
+Measurement Results: ['1100', '1010', '0110'].
+Execution Time: 5.32 seconds.
+Statevector (optional): Complex array representing the quantum state.
+Cost: $0.15 (if using real hardware).
+Error Message (if applicable): "Insufficient qubits for task".
