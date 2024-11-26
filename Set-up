@@ -1,4 +1,22 @@
 Setps to complete to add AWS Quantum
+Set up quantum in ordinary AWS
+import boto3
+form braket.circuits import Circuit
+form braket.aws import AwsDevice
+import matplotlib.pyplot as plt
+
+aws_account_id = boto3.client("sts").get_caller_identity()["Account"]
+device = AwsDevice("arn:aws:braket:::device/qpu/ionq/ionQdevice")
+### To use a cloud simulator, all you have to do is input your ARN here but for local you do this:
+device = LocalSimulator()
+
+s3_founder = (f"amazon_braket_output-{aws_account_id}", Ion-Q")
+
+
+
+
+
+
 
 1. Provider-Level Integration
 You need to define a new Provider entry for AWS Quantum Computing, specifying:
