@@ -1,3 +1,8 @@
+Set up Authenticaiton step
+User neds to enter API credentials
+
+
+
 Setps to complete to add AWS Quantum
 Set up quantum in ordinary AWS
 import boto3
@@ -22,9 +27,8 @@ print(counts
 plt.bar(counts.keys(), counts.values()
 
 
-
-
-
+I will need to add another class called \QuantumClient\ an extension 
+of DifyClient for AWS Braket operations.
 
 
 1. Provider-Level Integration
