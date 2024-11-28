@@ -29,7 +29,48 @@ plt.bar(counts.keys(), counts.values()
 
 I will need to add another class called \QuantumClient\ an extension 
 of DifyClient for AWS Braket operations.
+It will look like this but with specifics:
+class QuantumClient(DifyClient):
+    def __init__(self, api_key, aws_region, base_url="https://braket.amazonaws.com"):
+        super().__init__(api_key, base_url)
+        self.aws_region = aws_region
 
+    def submit_quantum_job(self, circuit, s3_output_location):
+        """
+        Submits a quantum circuit to AWS Braket.
+        
+        :param circuit: Quantum circuit in JSON or Braket IR format.
+        :param s3_output_location: S3 location for results.
+        :return: Response from the API.
+        """
+        data = {
+            "action": circuit,
+            "deviceArn": "arn:aws:braket:::device/qpu/rigetti/Aspen-M-3",
+            "outputS3Bucket": s3_output_location,
+        }
+        return self._send_request("POST", "/jobs", json=data)
+
+    def get_job_status(self, job_id):
+        """
+        Fetches the status of a submitted quantum job.
+        
+        :param job_id: The unique ID of the job.
+        :return: Response from the API.
+        """
+        return self._send_request("GET", f"/jobs/{job_id}")
+
+    def get_job_results(self, job_id):
+        """
+        Retrieves the results of a completed quantum job.
+        
+        :param job_id: The unique ID of the job.
+        :return: Response from the API.
+        """
+        return self._send_request("GET", f"/jobs/{job_id}/results")
+
+
+
+But there is more! I iwll need to create unit tests and doucmentation
 
 1. Provider-Level Integration
 You need to define a new Provider entry for AWS Quantum Computing, specifying:
