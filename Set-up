@@ -180,11 +180,6 @@ class AWSQuantumProvider(Extensible):
 
 
 
-Chat GTP Suggestion to add a QantumClient. However, I need to know:
-1) Under what files should this be
-2) Does it need additional coding to be an complete?
-
-
 import boto3
 from braket.aws import AwsDevice, AwsSession
 from braket.circuits import Circuit
@@ -215,3 +210,9 @@ device = quantum_client.select_device("arn:aws:braket:::device/qpu/ionq/ionQdevi
 circuit = Circuit().h(0).cnot(0, 1)
 task = quantum_client.run_circuit(circuit, device, "s3://your-bucket-name", shots=100)
 print(task.result())
+
+Chat GTP Suggestion to add a QantumClient. However, I need to know:
+1) Under what files should this be
+2) Does it need additional coding to be an complete?
+
+
