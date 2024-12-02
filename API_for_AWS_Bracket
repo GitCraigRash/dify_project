@@ -1,0 +1,46 @@
+pip install amazon-braket-sdk
+
+from braket.circuits import Circuit
+from braket.devices import LocalSimulator
+from braket.aws import AwsDevice
+
+def run_quantum_circuit(use_local_simulator=True):
+    """
+    Runs a simple quantum circuit using AWS Braket.
+    
+    Parameters:
+    use_local_simulator (bool): If True, uses the local simulator. If False, uses an AWS quantum device.
+    
+    Returns:
+    dict: The results of the quantum circuit execution.
+    """
+    try:
+        # Define a simple quantum circuit
+        circuit = Circuit()
+        circuit.h(0)  # Apply a Hadamard gate to qubit 0
+        circuit.cx(0, 1)  # Apply a CNOT gate with control qubit 0 and target qubit 1
+        circuit.measure([0, 1])  # Measure both qubits
+
+        if use_local_simulator:
+            # Use the local simulator
+            device = LocalSimulator()
+        else:
+            # Use an AWS Braket managed device (replace 'arn' with a valid device ARN)
+            device_arn = "arn:aws:braket:::device/quantum-simulator/amazon/sv1"
+            device = AwsDevice(device_arn)
+
+        # Run the circuit
+        task = device.run(circuit, shots=1000)  # Run with 1000 shots
+        result = task.result()
+
+        # Get measurement results
+        counts = result.measurement_counts
+        print(f"Results: {counts}")
+        return counts
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
+if __name__ == "__main__":
+    # Run the program
+    run_quantum_circuit()
