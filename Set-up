@@ -177,3 +177,41 @@ class AWSQuantumProvider(Extensible):
     def execute_task(self, task_config: dict):
         # Implement API calls to AWS Braket.
         pass
+
+
+
+Chat GTP Suggestion to add a QantumClient. However, I need to know:
+1) Under what files should this be
+2) Does it need additional coding to be an complete?
+
+
+import boto3
+from braket.aws import AwsDevice, AwsSession
+from braket.circuits import Circuit
+
+class QuantumClient:
+    def __init__(self, aws_region, access_key=None, secret_key=None):
+        self.session = boto3.Session(
+            aws_access_key_id=access_key,
+            aws_secret_access_key=secret_key,
+            region_name=aws_region,
+        )
+        self.braket_session = AwsSession(boto_session=self.session)
+
+    def select_device(self, device_arn):
+        return AwsDevice(device_arn, self.braket_session)
+
+    def run_circuit(self, circuit, device, s3_bucket, shots=1000):
+        task = device.run(circuit, s3_bucket, shots=shots)
+        return task
+
+    def get_task_results(self, task):
+        results = task.result()
+        return results.measurement_counts
+
+# Example Usage
+quantum_client = QuantumClient("us-west-1", "your-access-key", "your-secret-key")
+device = quantum_client.select_device("arn:aws:braket:::device/qpu/ionq/ionQdevice")
+circuit = Circuit().h(0).cnot(0, 1)
+task = quantum_client.run_circuit(circuit, device, "s3://your-bucket-name", shots=100)
+print(task.result())
