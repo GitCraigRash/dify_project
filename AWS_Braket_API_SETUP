@@ -1,1 +1,20 @@
 AWS_SETUP
+
+
+You will need permissions to use Amazon Braket.
+Permission are broken up into actions. 
+You can specify the following actions in the Action element 
+of an IAM policy statement. 
+Use policies to grant permissions to perform an operation 
+in AWS.
+
+
+
+Terms
+ARN : stands for Amazon Resource Name. It is a unique identifier 
+  used by AWS (Amazon Web Services) to specify a resource 
+  within the AWS ecosystem. ARNs are used in IAM (Identity 
+  and Access Management) policies to define permissions 
+  for specific resources.
+
+
