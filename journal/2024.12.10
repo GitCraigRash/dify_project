@@ -1,4 +1,9 @@
-
+###
+Summary:
+My strategy of using Anthropic to create an outline, then fill the outline in sounded promising, but has so far failed to live up to my hopes. It is still lengthy, expensive, and I still don't have a working program to help me. 
+Tomorrow will be brainstorming if another path is better or if I should persever to finish this analysis tool. 
+For reminder, the tool is supposed to take a feature request(string) form the programmer and examine the program looking for files that need to be edited to implement the feature. Hopefully useful for unfamiliar programs. 
+###
 9:00pm _______________  
 Rachel
 
