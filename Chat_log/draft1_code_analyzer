@@ -73,45 +73,91 @@ class CodebaseAnalyzer:
     
     Returns:
         Dict containing analysis results with file modifications, dependencies, and recommendations
+    
+    Raises:
+        ValueError: If codebase path is invalid
+        RuntimeError: If analysis encounters critical errors
     """
-    # Log the feature analysis start
-    self.logger.info(f"Analyzing feature: {feature_description}")
+    try:
+        # Validate input parameters
+        if not codebase_path or not os.path.exists(codebase_path):
+            raise ValueError(f"Invalid codebase path: {codebase_path}")
+        
+        if not feature_description:
+            raise ValueError("Feature description cannot be empty")
+        
+        # Log the feature analysis start
+        self.logger.info(f"Analyzing feature: {feature_description}")
+        
+        # Scan the entire codebase
+        try:
+            scanned_files = self.file_parser.scan_directory(codebase_path)
+        except Exception as scan_error:
+            self.logger.error(f"Directory scanning failed: {scan_error}")
+            raise RuntimeError(f"Unable to scan codebase: {scan_error}")
+        
+        # Identify relevant files based on feature description
+        try:
+            relevant_files = self._find_relevant_files(feature_description, scanned_files)
+        except Exception as relevance_error:
+            self.logger.warning(f"File relevance determination failed: {relevance_error}")
+            relevant_files = []
+        
+        # Analyze dependencies
+        try:
+            dependencies = self.dependency_analyzer.identify_dependencies(scanned_files)
+        except Exception as dep_error:
+            self.logger.warning(f"Dependency analysis failed: {dep_error}")
+            dependencies = {}
+        
+        # Perform security analysis
+        try:
+            security_risks = SecurityAnalyzer().analyze_security_risks(relevant_files)
+        except Exception as security_error:
+            self.logger.warning(f"Security analysis failed: {security_error}")
+            security_risks = []
+        
+        # Analyze performance implications
+        try:
+            performance_impact = PerformanceAnalyzer().analyze_performance_impact(relevant_files)
+        except Exception as perf_error:
+            self.logger.warning(f"Performance analysis failed: {perf_error}")
+            performance_impact = {}
+        
+        # Detailed file modification recommendations
+        try:
+            file_modifications = self._generate_modification_recommendations(
+                relevant_files, 
+                feature_description
+            )
+        except Exception as mod_error:
+            self.logger.warning(f"Modification recommendation generation failed: {mod_error}")
+            file_modifications = {}
+        
+        # Compile comprehensive analysis results
+        analysis_result = {
+            "feature_description": feature_description,
+            "relevant_files": [f['path'] for f in relevant_files],
+            "file_modifications": file_modifications,
+            "dependencies": dependencies,
+            "security_risks": security_risks,
+            "performance_impact": performance_impact
+        }
+        
+        # Log analysis completion
+        self.logger.info(f"Feature analysis completed for: {feature_description}")
+        
+        return analysis_result
     
-    # Scan the entire codebase
-    scanned_files = self.file_parser.scan_directory(codebase_path)
-    
-    # Identify relevant files based on feature description
-    relevant_files = self._find_relevant_files(feature_description)
-    
-    # Analyze dependencies
-    dependencies = self.dependency_analyzer.identify_dependencies(scanned_files)
-    
-    # Perform security analysis
-    security_risks = SecurityAnalyzer().analyze_security_risks(relevant_files)
-    
-    # Analyze performance implications
-    performance_impact = PerformanceAnalyzer().analyze_performance_impact(relevant_files)
-    
-    # Detailed file modification recommendations
-    file_modifications = self._generate_modification_recommendations(
-        relevant_files, 
-        feature_description
-    )
-    
-    # Compile comprehensive analysis results
-    analysis_result = {
-        "feature_description": feature_description,
-        "relevant_files": relevant_files,
-        "file_modifications": file_modifications,
-        "dependencies": dependencies,
-        "security_risks": security_risks,
-        "performance_impact": performance_impact
-    }
-    
-    # Log analysis completion
-    self.logger.info(f"Feature analysis completed for: {feature_description}")
-    
-    return analysis_result
+    except (ValueError, RuntimeError) as known_error:
+        # Re-raise known errors
+        self.logger.error(f"Analysis failed: {known_error}")
+        raise
+    except Exception as unexpected_error:
+        # Handle unexpected errors
+        self.logger.critical(f"Unexpected error during feature analysis: {unexpected_error}")
+        raise RuntimeError(f"Unexpected analysis error: {unexpected_error}")
+
 
 
 
