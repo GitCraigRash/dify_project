@@ -1,5 +1,4 @@
-import os
-import traceback
+
 import os
 import json
 from typing import List, Dict, Any
@@ -609,4 +608,89 @@ def main():
     print(result)
 
 if __name__ == '__main__':
+    import argparse
+    import sys
+    import logging
+
+    def main():
+        # Create argument parser
+        parser = argparse.ArgumentParser(
+            description='Codebase Feature Analysis Tool',
+            epilog='Analyze and suggest modifications for software features'
+        )
+        
+        # Add arguments
+        parser.add_argument(
+            'codebase_path', 
+            help='Path to the project codebase to analyze'
+        )
+        parser.add_argument(
+            'feature_description', 
+            help='Detailed description of the feature to implement'
+        )
+        parser.add_argument(
+            '-c', '--config', 
+            default=None, 
+            help='Path to configuration file (optional)'
+        )
+        parser.add_argument(
+            '-o', '--output', 
+            choices=['json', 'yaml', 'text'], 
+            default='json', 
+            help='Output format for analysis results'
+        )
+        parser.add_argument(
+            '-l', '--log-level', 
+            choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
+            default='INFO', 
+            help='Set logging verbosity'
+        )
+        
+        # Parse arguments
+        try:
+            args = parser.parse_args()
+            
+            # Configure logging based on user input
+            logging.basicConfig(
+                level=getattr(logging, args.log_level),
+                format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            )
+            
+            # Initialize FeatureAnalyzer
+            try:
+                analyzer = FeatureAnalyzer(
+                    codebase_root=args.codebase_path, 
+                    config_path=args.config, 
+                    logging_level=args.log_level
+                )
+                
+                # Perform feature analysis
+                result = analyzer.analyze_feature(
+                    args.codebase_path, 
+                    args.feature_description, 
+                    output_format=args.output
+                )
+                
+                # Output results
+                if args.output == 'json':
+                    import json
+                    print(json.dumps(result, indent=2))
+                elif args.output == 'yaml':
+                    import yaml
+                    print(yaml.dump(result, default_flow_style=False))
+                else:
+                    print(result)
+                
+                sys.exit(0)
+            
+            except Exception as analyzer_error:
+                logging.error(f"Feature analysis failed: {analyzer_error}")
+                sys.exit(1)
+        
+        except argparse.ArgumentTypeError as arg_error:
+            logging.error(f"Argument error: {arg_error}")
+            parser.print_help()
+            sys.exit(2)
+    
+    # Run the main function
     main()
