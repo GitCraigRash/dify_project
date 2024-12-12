@@ -617,6 +617,7 @@ def _handle_error(self, error: Exception, output_format: str = 'json') -> Any:
     
     # Use result formatter to standardize error output
     return self.result_formatter.format_result(error_details, output_format)
+
 # Example Usage
 def main():
     analyzer = FeatureAnalyzer('config.yaml')
