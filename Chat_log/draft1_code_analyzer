@@ -1,3 +1,27 @@
+You are an expert computer coder and helpful assistant. 
+Assists the user by suggesting files that will need to be addressed when adding a feature described by the user.
+Takes as input:
+
+A program's codebase(folder)
+A specific feature requirement(string)
+Store all API endpoints in a configuration file (e.g., JSON, YAML) or a dictionary in your code. Use a brief string or keyword to select the desired endpoint at runtime.
+
+Analyzes the codebase to:
+
+Identify files relevant to implementing the requested feature
+List which files need modification
+
+
+Returns:
+
+A list of files that require editing
+Explanation of why each file is relevant
+Suggested areas within each file for modifications"
+
+Current code:
+import os
+import json
+from typing import List, Dict, Any
 
 class CodebaseAnalyzer:
     """Main class to analyze codebase and suggest file modifications"""
@@ -471,35 +495,128 @@ class PerformanceAnalyzer:
 class FeatureAnalyzer:
     """Main interface for feature implementation analysis"""
     
-    def __init__(self, config_path='config.yaml'):
-        self.codebase_analyzer = CodebaseAnalyzer(config_path)
-        self.result_formatter = ResultFormatter()
-    
-    def analyze_feature(self, codebase_path, feature_description, output_format='json'):
-        """
-        Analyze feature implementation requirements
-        
-        Args:
-            codebase_path (str): Path to project codebase
-            feature_description (str): Feature requirements
-            output_format (str): Desired output format
-        
-        Returns:
-            Formatted analysis results
-        """
-        try:
-            # Perform comprehensive analysis
-            analysis_result = self.codebase_analyzer.analyze_feature_requirement(
-                codebase_path, 
-                feature_description
-            )
-            
-            # Format results
-            return self.result_formatter.format_result(analysis_result, output_format)
-        
-        except Exception as e:
-            return self._handle_error(e, output_format)
+    def __init__(self, codebase_root: str, config_path: str = None, logging_level: str = 'INFO'):
+    """
+    Initialize FeatureAnalyzer with configuration and setup
 
+    Args:
+        codebase_root (str): Root directory of the project/codebase
+        config_path (str, optional): Path to configuration file. Defaults to None.
+        logging_level (str, optional): Logging level for analysis. Defaults to 'INFO'.
+
+    Attributes:
+        codebase_root (str): Root directory of the project
+        config_path (str): Path to configuration file
+        codebase_analyzer (CodebaseAnalyzer): Instance for comprehensive codebase analysis
+        result_formatter (ResultFormatter): Formats analysis results
+        logger (logging.Logger): Logger for tracking analysis process
+    """
+    # Validate codebase root
+    if not os.path.exists(codebase_root):
+        raise ValueError(f"Codebase root directory does not exist: {codebase_root}")
+    
+    # Set attributes
+    self.codebase_root = os.path.abspath(codebase_root)
+    self.config_path = config_path
+
+    # Setup logging
+    self.logger = logging.getLogger(__name__)
+    logging_levels = {
+        'DEBUG': logging.DEBUG,
+        'INFO': logging.INFO,
+        'WARNING': logging.WARNING,
+        'ERROR': logging.ERROR,
+        'CRITICAL': logging.CRITICAL
+    }
+    self.logger.setLevel(logging_levels.get(logging_level.upper(), logging.INFO))
+
+    # Configure console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging_levels.get(logging_level.upper(), logging.INFO))
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    console_handler.setFormatter(formatter)
+    self.logger.addHandler(console_handler)
+
+    # Initialize core analysis components
+    try:
+        self.codebase_analyzer = CodebaseAnalyzer(
+            codebase_root=self.codebase_root, 
+            config_path=self.config_path
+        )
+        self.result_formatter = ResultFormatter()
+        
+        # Log successful initialization
+        self.logger.info(f"FeatureAnalyzer initialized for: {self.codebase_root}")
+    
+    except Exception as e:
+        self.logger.error(f"Failed to initialize FeatureAnalyzer: {e}")
+        raise
+    
+    def analyze_feature(self, codebase_path: str, feature_description: str, output_format: str = 'json') -> Any:
+    """
+    Comprehensively analyze feature implementation requirements
+    
+    Args:
+        codebase_path (str): Path to project codebase
+        feature_description (str): Detailed feature requirements
+        output_format (str, optional): Desired output format. Defaults to 'json'.
+    
+    Returns:
+        Formatted analysis results based on specified output format
+    """
+    try:
+        # Log the start of feature analysis
+        self.logger.info(f"Starting feature analysis: {feature_description}")
+        
+        # Validate input paths
+        if not os.path.exists(codebase_path):
+            raise ValueError(f"Codebase path does not exist: {codebase_path}")
+        
+        # Perform comprehensive analysis using CodebaseAnalyzer
+        analysis_result = self.codebase_analyzer.analyze_feature_requirement(
+            codebase_path, 
+            feature_description
+        )
+        
+        # Log successful analysis
+        self.logger.info(f"Feature analysis completed for: {feature_description}")
+        
+        # Format and return results
+        formatted_result = self.result_formatter.format_result(
+            analysis_result, 
+            output_format
+        )
+        
+        return formatted_result
+    
+    except Exception as e:
+        # Log the error
+        self.logger.error(f"Feature analysis failed: {e}")
+        
+        # Handle and format error based on output format
+        return self._handle_error(e, output_format)
+
+def _handle_error(self, error: Exception, output_format: str = 'json') -> Any:
+    """
+    Handle and format errors during feature analysis
+    
+    Args:
+        error (Exception): The caught exception
+        output_format (str, optional): Desired output format. Defaults to 'json'.
+    
+    Returns:
+        Formatted error response
+    """
+    error_details = {
+        'error': {
+            'type': type(error).__name__,
+            'message': str(error),
+            'details': str(traceback.format_exc()) if self.logger.getEffectiveLevel() <= logging.DEBUG else None
+        }
+    }
+    
+    # Use result formatter to standardize error output
+    return self.result_formatter.format_result(error_details, output_format)
 # Example Usage
 def main():
     analyzer = FeatureAnalyzer('config.yaml')
