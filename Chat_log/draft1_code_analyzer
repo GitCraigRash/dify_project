@@ -1,7 +1,11 @@
 
 import os
+import re
 import json
-from typing import List, Dict, Any
+import yaml
+import logging
+import traceback
+from typing import List, Dict, Any, Optional
 
 class CodebaseAnalyzer:
     """Main class to analyze codebase and suggest file modifications"""
