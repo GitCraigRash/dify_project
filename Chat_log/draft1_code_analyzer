@@ -1,0 +1,513 @@
+
+class CodebaseAnalyzer:
+    """Main class to analyze codebase and suggest file modifications"""
+    
+    def __init__(self, codebase_root: str, config_path: str = None):
+        """
+        Initialize the CodebaseAnalyzer with codebase root and optional configuration
+
+        Args:
+            codebase_root (str): Root directory of the project/codebase
+            config_path (str, optional): Path to the configuration file. 
+                                        Defaults to None.
+        
+        Attributes:
+            codebase_root (str): Root directory of the project
+            config_manager (ConfigurationManager): Manages configuration settings
+            file_parser (FileParser): Handles file parsing and analysis
+            dependency_analyzer (DependencyAnalyzer): Analyzes code dependencies
+            logger (logging.Logger): Logging instance for tracking analysis process
+        """
+        # Validate and set codebase root
+        if not os.path.exists(codebase_root):
+            raise ValueError(f"Codebase root directory does not exist: {codebase_root}")
+        
+        self.codebase_root = os.path.abspath(codebase_root)
+        
+        # Initialize configuration manager
+        self.config_manager = (
+            ConfigurationManager(config_path) 
+            if config_path and os.path.exists(config_path) 
+            else ConfigurationManager()
+        )
+        
+        # Initialize utility classes
+        self.file_parser = FileParser()
+        self.dependency_analyzer = DependencyAnalyzer()
+        
+        # Setup logging
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+        
+        # Create console handler
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.INFO)
+        
+        # Create formatter
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        )
+        console_handler.setFormatter(formatter)
+        
+        # Add handler to logger
+        self.logger.addHandler(console_handler)
+        
+        # Log initialization
+        self.logger.info(f"CodebaseAnalyzer initialized for: {self.codebase_root}")
+
+    def analyze_feature_requirement(self, codebase_path: str, feature_description: str) -> Dict[str, Any]:
+    """
+    Comprehensively analyze feature requirements and identify necessary code modifications
+    
+    Args:
+        codebase_path (str): Path to the project codebase
+        feature_description (str): Detailed description of the feature to implement
+    
+    Returns:
+        Dict containing analysis results with file modifications, dependencies, and recommendations
+    """
+    # Log the feature analysis start
+    self.logger.info(f"Analyzing feature: {feature_description}")
+    
+    # Scan the entire codebase
+    scanned_files = self.file_parser.scan_directory(codebase_path)
+    
+    # Identify relevant files based on feature description
+    relevant_files = self._find_relevant_files(feature_description)
+    
+    # Analyze dependencies
+    dependencies = self.dependency_analyzer.identify_dependencies(scanned_files)
+    
+    # Perform security analysis
+    security_risks = SecurityAnalyzer().analyze_security_risks(relevant_files)
+    
+    # Analyze performance implications
+    performance_impact = PerformanceAnalyzer().analyze_performance_impact(relevant_files)
+    
+    # Detailed file modification recommendations
+    file_modifications = self._generate_modification_recommendations(
+        relevant_files, 
+        feature_description
+    )
+    
+    # Compile comprehensive analysis results
+    analysis_result = {
+        "feature_description": feature_description,
+        "relevant_files": relevant_files,
+        "file_modifications": file_modifications,
+        "dependencies": dependencies,
+        "security_risks": security_risks,
+        "performance_impact": performance_impact
+    }
+    
+    # Log analysis completion
+    self.logger.info(f"Feature analysis completed for: {feature_description}")
+    
+    return analysis_result
+
+
+
+class ConfigurationManager:
+def __init__(self, config_path=None):
+    """
+    Initialize ConfigurationManager with optional configuration file path.
+    
+    Args:
+        config_path (str, optional): Path to the configuration file. 
+                                     Defaults to None.
+    
+    Attributes:
+        config (dict): Loaded configuration dictionary
+        api_endpoints (dict): Dictionary of API endpoints
+        default_config (dict): Default configuration settings
+    """
+    # Define default configuration
+    self.default_config = {
+        'api_endpoints': {
+            'base_url': 'https://api.example.com/v1',
+            'auth': '/auth/login',
+            'users': '/users',
+            'resources': '/resources'
+        },
+        'logging': {
+            'level': 'INFO',
+            'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        },
+        'security': {
+            'jwt_secret': None,
+            'token_expiration': 3600  # 1 hour
+        }
+    }
+    
+    # Initialize configuration
+    self.config = self.default_config.copy()
+    
+    # Load configuration if path is provided
+    if config_path:
+        self.config.update(self._load_config(config_path))
+    
+    # Extract API endpoints
+    self.api_endpoints = self.config.get('api_endpoints', {})
+
+def _load_config(self, config_path):
+    """
+    Load configuration from file based on file extension.
+    
+    Args:
+        config_path (str): Path to the configuration file
+    
+    Returns:
+        dict: Loaded configuration dictionary
+    """
+    import os
+    import json
+    import yaml
+    
+    # Get file extension
+    _, ext = os.path.splitext(config_path)
+    
+    try:
+        with open(config_path, 'r') as f:
+            if ext.lower() in ['.yaml', '.yml']:
+                return yaml.safe_load(f)
+            elif ext.lower() == '.json':
+                return json.load(f)
+            else:
+                raise ValueError(f"Unsupported configuration file type: {ext}")
+    except FileNotFoundError:
+        print(f"Configuration file not found: {config_path}")
+        return {}
+    except (json.JSONDecodeError, yaml.YAMLError) as e:
+        print(f"Error parsing configuration file: {e}")
+        return {}
+
+
+class FileParser:
+    """Parse and analyze project files"""
+    
+def scan_directory(self, path: str, 
+                   include_extensions: List[str] = None, 
+                   exclude_dirs: List[str] = None) -> List[Dict[str, Any]]:
+    """
+    Recursively scan directory and parse files with advanced filtering and parsing
+    
+    Args:
+        path (str): Root directory path to scan
+        include_extensions (List[str], optional): File extensions to include 
+        exclude_dirs (List[str], optional): Directories to exclude from scanning
+    
+    Returns:
+        List of dictionaries containing file metadata and content
+    """
+    # Default configurations if not provided
+    include_extensions = include_extensions or [
+        '.py', '.js', '.ts', '.html', '.css', '.json', 
+        '.yaml', '.yml', '.md', '.txt', '.xml'
+    ]
+    exclude_dirs = exclude_dirs or [
+        '.git', '.venv', 'node_modules', 'build', 'dist', 
+        '__pycache__', '.pytest_cache', '.mypy_cache'
+    ]
+    
+    files = []
+    
+    # Use os.walk for recursive directory traversal
+    for root, dirs, filenames in os.walk(path):
+        # Remove excluded directories
+        dirs[:] = [d for d in dirs if d not in exclude_dirs]
+        
+        for filename in filenames:
+            # Check file extension
+            file_ext = os.path.splitext(filename)[1].lower()
+            if file_ext not in include_extensions:
+                continue
+            
+            full_path = os.path.join(root, filename)
+            
+            try:
+                file_info = {
+                    'path': full_path,
+                    'filename': filename,
+                    'directory': root,
+                    'type': self._get_file_type(filename),
+                    'extension': file_ext,
+                    'size': os.path.getsize(full_path),
+                    'content': self._read_file(full_path)
+                }
+                files.append(file_info)
+            
+            except (PermissionError, IOError) as e:
+                # Log or handle file reading errors
+                print(f"Error reading file {full_path}: {e}")
+    
+    return files
+
+def _get_file_type(self, filename: str) -> str:
+    """
+    Determine file type based on extension and content
+    
+    Args:
+        filename (str): Name of the file
+    
+    Returns:
+        str: Categorized file type
+    """
+    ext = os.path.splitext(filename)[1].lower()
+    
+    file_type_map = {
+        # Programming Languages
+        '.py': 'Python',
+        '.js': 'JavaScript',
+        '.ts': 'TypeScript',
+        '.java': 'Java',
+        '.cpp': 'C++',
+        '.c': 'C',
+        '.rb': 'Ruby',
+        
+        # Web Technologies
+        '.html': 'HTML',
+        '.css': 'CSS',
+        '.scss': 'SCSS',
+        
+        # Configuration
+        '.json': 'JSON Configuration',
+        '.yaml': 'YAML Configuration',
+        '.yml': 'YAML Configuration',
+        '.ini': 'INI Configuration',
+        
+        # Documentation
+        '.md': 'Markdown',
+        '.txt': 'Plain Text',
+        '.rst': 'ReStructured Text',
+        
+        # Others
+        '.xml': 'XML',
+        '.log': 'Log File'
+    }
+    
+    return file_type_map.get(ext, 'Unknown')
+
+class DependencyAnalyzer:
+    """Analyze code dependencies and relationships"""
+    
+def identify_dependencies(self, files: List[Dict[str, Any]]) -> Dict[str, List[str]]:
+    """
+    Identify inter-file dependencies by analyzing import statements and module references
+    
+    Args:
+        files (List[Dict[str, Any]]): List of file information dictionaries
+    
+    Returns:
+        Dict[str, List[str]]: A dictionary mapping files to their dependencies
+    """
+    dependencies = {}
+    
+    # Regular expressions for different language import patterns
+    import_patterns = {
+        'python': [
+            r'^\s*import\s+(\w+)',
+            r'^\s*from\s+(\w+)\s+import',
+            r'^\s*from\s+\.(\w+)\s+import'
+        ],
+        'javascript': [
+            r'^\s*import\s+.*\s+from\s+[\'"](.+)[\'"]',
+            r'^\s*const\s+.*\s*=\s*require\([\'"](.+)[\'"]\)'
+        ],
+        'typescript': [
+            r'^\s*import\s+.*\s+from\s+[\'"](.+)[\'"]',
+            r'^\s*import\s+\{.*\}\s+from\s+[\'"](.+)[\'"]'
+        ]
+    }
+    
+    for file_info in files:
+        file_path = file_info['path']
+        file_type = file_info['type'].lower()
+        file_content = file_info['content']
+        
+        # Select appropriate import patterns based on file type
+        patterns = []
+        if 'python' in file_type:
+            patterns = import_patterns['python']
+        elif 'javascript' in file_type:
+            patterns = import_patterns['javascript']
+        elif 'typescript' in file_type:
+            patterns = import_patterns['typescript']
+        
+        # Extract dependencies using regex
+        file_dependencies = set()
+        for pattern in patterns:
+            import_matches = re.findall(pattern, file_content, re.MULTILINE)
+            file_dependencies.update(import_matches)
+        
+        # Resolve dependencies to full file paths
+        resolved_dependencies = []
+        for dep in file_dependencies:
+            matching_files = [
+                f['path'] for f in files 
+                if dep in f['filename'] or dep in f['path']
+            ]
+            resolved_dependencies.extend(matching_files)
+        
+        # Store unique dependencies
+        dependencies[file_path] = list(set(resolved_dependencies))
+    
+    # Advanced dependency analysis
+    dependencies = self._enhance_dependency_analysis(dependencies, files)
+    
+    return dependencies
+
+
+class SecurityAnalyzer:
+    """Analyze security risks in code"""
+    
+    def analyze_security_risks(self, files: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Comprehensively identify potential security vulnerabilities in files
+        
+        Args:
+            files (List[Dict[str, Any]]): List of file information dictionaries
+        
+        Returns:
+            List of dictionaries containing security risks
+        """
+        security_risks = []
+        
+        # Security risk patterns for different file types
+        risk_patterns = {
+            'python': {
+                'hardcoded_credentials': r'(password|secret|api_key)\s*=\s*[\'"]([^\'"]+)[\'"]',
+                'sql_injection': r'(\.execute\(.*%s|\.format\(.*%s)',
+                'shell_injection': r'subprocess\.(?:call|run|Popen)\(.*\bshell\s*=\s*True',
+                'deserialization_risk': r'pickle\.(?:load|loads)',
+                'eval_usage': r'\beval\(',
+                'input_validation': r'input\(|raw_input\('
+            },
+            'javascript': {
+                'hardcoded_credentials': r'(password|secret|apiKey)\s*:\s*[\'"]([^\'"]+)[\'"]',
+                'xss_risk': r'\.innerHTML\s*=|document\.write\(',
+                'eval_usage': r'\beval\(',
+                'command_injection': r'child_process\.exec\(',
+                'insecure_random': r'Math\.random\(\)'
+            },
+            'general': {
+                'sensitive_comments': r'(TODO:|FIXME:)\s*(password|secret|key|credentials)',
+                'debug_leftovers': r'console\.log\(.*credentials',
+                'potential_tokens': r'(token|jwt|secret).*=\s*[\'"][A-Za-z0-9+/=]{20,}[\'"]\s*'
+            }
+        }
+        
+        for file_info in files:
+            file_path = file_info['path']
+            file_type = file_info['type'].lower()
+            file_content = file_info['content']
+            
+            # Determine risk patterns based on file type
+            applicable_patterns = risk_patterns['general']
+            if 'python' in file_type:
+                applicable_patterns.update(risk_patterns['python'])
+            elif 'javascript' in file_type or 'typescript' in file_type:
+                applicable_patterns.update(risk_patterns['javascript'])
+            
+            # Scan for security risks
+            file_risks = self._scan_file_for_risks(
+                file_path, 
+                file_content, 
+                applicable_patterns
+            )
+            
+            if file_risks:
+                security_risks.extend(file_risks)
+        
+        # Advanced risk correlation and prioritization
+        prioritized_risks = self._prioritize_risks(security_risks)
+        
+        return prioritized_risks
+
+
+
+class PerformanceAnalyzer:
+    """Analyze performance implications of code changes"""
+    
+    def analyze_performance_impact(self, files: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Comprehensively estimate performance impact of proposed changes
+        
+        Args:
+            files (List[Dict[str, Any]]): List of files to analyze
+        
+        Returns:
+            Dict containing performance metrics and recommendations
+        """
+        performance_impact = {
+            'overall_complexity': 0,
+            'potential_bottlenecks': [],
+            'memory_usage': {},
+            'time_complexity': {},
+            'recommendations': []
+        }
+        
+        for file_info in files:
+            file_path = file_info['path']
+            file_content = file_info['content']
+            file_type = file_info['type'].lower()
+            
+            # Analyze based on file type
+            if 'python' in file_type:
+                file_performance = self._analyze_python_performance(file_path, file_content)
+                performance_impact['time_complexity'][file_path] = file_performance['time_complexity']
+                performance_impact['memory_usage'][file_path] = file_performance['memory_usage']
+                performance_impact['potential_bottlenecks'].extend(file_performance['bottlenecks'])
+            
+            # Add complexity score
+            performance_impact['overall_complexity'] += self._calculate_code_complexity(file_content)
+        
+        # Generate performance recommendations
+        performance_impact['recommendations'] = self._generate_performance_recommendations(
+            performance_impact
+        )
+        
+        return performance_impact
+
+class FeatureAnalyzer:
+    """Main interface for feature implementation analysis"""
+    
+    def __init__(self, config_path='config.yaml'):
+        self.codebase_analyzer = CodebaseAnalyzer(config_path)
+        self.result_formatter = ResultFormatter()
+    
+    def analyze_feature(self, codebase_path, feature_description, output_format='json'):
+        """
+        Analyze feature implementation requirements
+        
+        Args:
+            codebase_path (str): Path to project codebase
+            feature_description (str): Feature requirements
+            output_format (str): Desired output format
+        
+        Returns:
+            Formatted analysis results
+        """
+        try:
+            # Perform comprehensive analysis
+            analysis_result = self.codebase_analyzer.analyze_feature_requirement(
+                codebase_path, 
+                feature_description
+            )
+            
+            # Format results
+            return self.result_formatter.format_result(analysis_result, output_format)
+        
+        except Exception as e:
+            return self._handle_error(e, output_format)
+
+# Example Usage
+def main():
+    analyzer = FeatureAnalyzer('config.yaml')
+    result = analyzer.analyze_feature(
+        '/path/to/project', 
+        'Add user authentication with JWT support'
+    )
+    print(result)
+
+if __name__ == '__main__':
+    main()
