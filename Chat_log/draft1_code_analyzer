@@ -1,24 +1,5 @@
-You are an expert computer coder and helpful assistant. 
-Assists the user by suggesting files that will need to be addressed when adding a feature described by the user.
-Takes as input:
-
-A program's codebase(folder)
-A specific feature requirement(string)
-Store all API endpoints in a configuration file (e.g., JSON, YAML) or a dictionary in your code. Use a brief string or keyword to select the desired endpoint at runtime.
-
-Analyzes the codebase to:
-
-Identify files relevant to implementing the requested feature
-List which files need modification
-
-
-Returns:
-
-A list of files that require editing
-Explanation of why each file is relevant
-Suggested areas within each file for modifications"
-
-Current code:
+import os
+import traceback
 import os
 import json
 from typing import List, Dict, Any
